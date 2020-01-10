@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavBarOptions, NavBarBrand } from './components/navBar/navBar.component';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'weatherMap';
+  navBarOptions: NavBarOptions;
+  constructor() {
+    this.navBarOptions = new NavBarOptions();
+    this.navBarOptions.brand = new NavBarBrand();
+    this.navBarOptions.brand.name = 'Weather Map';
+    this.navBarOptions.brand.routerLink = ['/map'];
+  }
 }
