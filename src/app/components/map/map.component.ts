@@ -26,7 +26,7 @@ export class MapComponent implements OnInit {
       center: [
         possition ? possition.coords.latitude : 39.0075314,
         possition ? possition.coords.longitude : 22.1871173],
-      zoom: possition ? 17 : 7.5,
+      zoom: possition ? 10 : 7.5,
       layers: [
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 19,

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavBarOptions, NavBarBrand } from './components/navBar/navBar.component';
+import { NavBarOptions, NavBarBrand, NavBarLink } from './components/navBar/navBar.component';
 
 @Component({
   selector: 'app-root',
@@ -13,5 +13,12 @@ export class AppComponent {
     this.navBarOptions.brand = new NavBarBrand();
     this.navBarOptions.brand.name = 'Weather Map';
     this.navBarOptions.brand.routerLink = ['/map'];
+    this.navBarOptions.search = true;
+    this.navBarOptions.links = new Array<NavBarLink>();
+    this.navBarOptions.links = [
+      { text: 'Link 1', routerLink: ['/link1'] },
+      { text: 'Link 2', routerLink: ['/link2'] },
+      { text: 'Link 2', routerLink: ['/link3'], disabled: true },
+    ]
   }
 }
