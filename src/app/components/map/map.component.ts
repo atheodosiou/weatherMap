@@ -11,21 +11,22 @@ export class MapComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-   
-
-  if(navigator.geolocation){
+   if(this.isGeoLocationAvailable()){
     navigator.geolocation.getCurrentPosition((possition)=>{
-      console.log(possition)
-
       this.initMap(possition);
-    })
+    });
+   }else{
+     this.initMap();
+   }
   }
-  }
-
-  initMap(possition){
+  //Greece Geolocation
+  // 39.0075314,22.1871173,7.5
+  initMap(possition?){
     this.map = L.map('map',{
-      center:[possition.coords.latitude,possition.coords.longitude],
-      zoom:17
+      center:[
+        possition?possition.coords.latitude:39.0075314,
+        possition?possition.coords.longitude:22.1871173],
+      zoom:possition?17:7.5
     });
  
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -34,5 +35,9 @@ export class MapComponent implements OnInit {
    });
  
    tiles.addTo(this.map);
+  }
+
+  private isGeoLocationAvailable():boolean{
+    return navigator.geolocation?true:false;
   }
 }
