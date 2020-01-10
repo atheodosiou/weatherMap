@@ -26,7 +26,7 @@ export class MapComponent implements OnInit {
       center: [
         possition ? possition.coords.latitude : 39.0075314,
         possition ? possition.coords.longitude : 22.1871173],
-      zoom: possition ? 10 : 7.5,
+      zoom: possition ? 18 : 7.5,
       layers: [
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 19,
@@ -34,6 +34,22 @@ export class MapComponent implements OnInit {
         })
       ]
     });
+
+    this.addMarker(this.map, possition);
+
+    // L.marker([possition.coords.latitude, possition.coords.longitude]).addTo(this.map);
+  }
+
+  private addMarker(map: L.Map, possition: any, label?: string) {
+    const marker = L.marker(
+      [possition.coords.latitude, possition.coords.longitude],
+      {
+        icon: L.icon({ iconUrl: 'assets/icons/marker.svg', iconSize: [48, 48], iconAnchor: [24, 48], popupAnchor: [0, -48] })
+      }
+    ).addTo(map);
+    if (label) {
+      marker.bindPopup(label);
+    }
   }
 
   private isGeoLocationAvailable(): boolean {
