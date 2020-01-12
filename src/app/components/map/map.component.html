@@ -1,12 +1,50 @@
 <div class="map-container">
   <div id="map">
-    <div *ngIf="currentWeather" class="text-dark city">
-      <div class="city-name">{{ currentWeather?.name }}</div>
+    <div *ngIf="currentWeather" class="bg-dark text-white city">
+      <div>
+        <div class="city-name">
+          {{ currentWeather?.name }}, {{ currentWeather?.sys?.country }}
+        </div>
+        <div style="text-align: center;">
+          {{ (currentWeather?.weather)[0]?.description }}
+        </div>
+      </div>
       <img [src]="currentWeather?.iconUrl" height="48" alt="condition icon" />
       <div class="temp">{{ currentWeather?.main?.temp }} °C</div>
     </div>
     <div *ngIf="currentWeather" class="text-dark details">
-      Details
+      <table class="table table-sm table-dark mb-0">
+        <tbody>
+          <tr>
+            <td>Min Tmep.</td>
+            <td>{{ currentWeather?.main?.temp_min }} °C</td>
+          </tr>
+          <tr>
+            <td>Max Tmep.</td>
+            <td>{{ currentWeather?.main?.temp_max }} °C</td>
+          </tr>
+          <tr>
+            <td>Feels Like</td>
+            <td>{{ currentWeather?.main?.feels_like }} °C</td>
+          </tr>
+          <tr>
+            <td>Pressure</td>
+            <td>{{ currentWeather?.main?.pressure }} hpa</td>
+          </tr>
+          <tr>
+            <td>Humidity</td>
+            <td>{{ currentWeather?.main?.humidity }} %</td>
+          </tr>
+          <tr>
+            <td>Wind Speed</td>
+            <td>{{ currentWeather?.wind?.speed }} m/s</td>
+          </tr>
+          <tr>
+            <td>Clouds</td>
+            <td>{{ currentWeather?.clouds?.all }} %</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class="bg-dark text-light bottom-line">
       <div class="left">© 2019 Anastasios Theodosiou</div>
