@@ -1,5 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
+import { WeatherService } from 'src/app/services/weather.service';
+import { CurrentWeather } from 'src/app/models/weather.model';
 
 @Component({
   selector: 'app-map',
@@ -8,21 +10,30 @@ import * as L from 'leaflet';
 })
 export class MapComponent implements OnInit {
   map: L.Map;
-  constructor() { }
+  currentWeather: CurrentWeather;
+
+  constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
     if (this.isGeoLocationAvailable()) {
       navigator.geolocation.getCurrentPosition((possition) => {
         this.initMap(possition);
+        this.weatherService.getCurrentWeatherByCoords(possition.coords.latitude, possition.coords.longitude).subscribe((weather: CurrentWeather) => {
+          weather.iconUrl = this.weatherService.getIconUrl(weather.weather[0].icon);
+          this.currentWeather = weather;
+          console.log(weather);
+        })
       });
     } else {
       this.initMap();
     }
+
   }
   //Greece Geolocation
   // 39.0075314,22.1871173,7.5
   initMap(possition?) {
     this.map = L.map('map', {
+      zoomControl: false,
       center: [
         possition ? possition.coords.latitude : 39.0075314,
         possition ? possition.coords.longitude : 22.1871173],
@@ -34,6 +45,11 @@ export class MapComponent implements OnInit {
         })
       ]
     });
+
+    L.control.zoom({
+      position: 'bottomright'
+    }).addTo(this.map);
+
 
     this.addMarker(this.map, possition);
 

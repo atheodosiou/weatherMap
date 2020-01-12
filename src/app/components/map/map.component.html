@@ -1,3 +1,21 @@
 <div class="map-container">
-  <div id="map"></div>
+  <div id="map">
+    <div *ngIf="currentWeather" class="text-dark city">
+      <div class="city-name">{{ currentWeather?.name }}</div>
+      <img [src]="currentWeather?.iconUrl" height="48" alt="condition icon" />
+      <div class="temp">{{ currentWeather?.main?.temp }} °C</div>
+    </div>
+    <div *ngIf="currentWeather" class="text-dark details">
+      Details
+    </div>
+    <div class="bg-dark text-light bottom-line">
+      <div class="left">© 2019 Anastasios Theodosiou</div>
+      <div class="right">
+        Powered By
+        <a href="https://openweathermap.org/" class="badge badge-dark"
+          >OpenWeather</a
+        >
+      </div>
+    </div>
+  </div>
 </div>
