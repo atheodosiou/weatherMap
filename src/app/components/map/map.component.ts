@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import { WeatherService } from 'src/app/services/weather.service';
 import { CurrentWeather } from 'src/app/models/weather.model';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-map',
@@ -11,6 +12,7 @@ import { CurrentWeather } from 'src/app/models/weather.model';
 export class MapComponent implements OnInit {
   map: L.Map;
   currentWeather: CurrentWeather;
+  weatherData: CurrentWeather[] = [];
 
   constructor(private weatherService: WeatherService) { }
 
@@ -22,6 +24,10 @@ export class MapComponent implements OnInit {
           weather.iconUrl = this.weatherService.getIconUrl(weather.weather[0].icon);
           this.currentWeather = weather;
           console.log(weather);
+        });
+
+        this.weatherService.getCities().subscribe((cities: any[]) => {
+          console.log(cities)
         })
       });
     } else {
@@ -56,11 +62,11 @@ export class MapComponent implements OnInit {
     // L.marker([possition.coords.latitude, possition.coords.longitude]).addTo(this.map);
   }
 
-  private addMarker(map: L.Map, possition: any, label?: string) {
+  private async addMarker(map: L.Map, possition: any, label?: string) {
     const marker = L.marker(
       [possition.coords.latitude, possition.coords.longitude],
       {
-        icon: L.icon({ iconUrl: 'assets/icons/marker.svg', iconSize: [48, 48], iconAnchor: [24, 48], popupAnchor: [0, -48] })
+        icon: L.icon({ iconUrl: 'assets/icons/pin.png', iconSize: [37, 50], iconAnchor: [17, 50], popupAnchor: [0, -50] })
       }
     ).addTo(map);
     if (label) {

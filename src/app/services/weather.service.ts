@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import * as cityNames from '../../assets/data/cities.greece.json';
 import { CurrentWeather } from '../models/weather.model.js';
@@ -22,5 +22,14 @@ export class WeatherService {
 
   getIconUrl(icon: string): string {
     return `http://openweathermap.org/img/wn/${icon}@2x.png`;
+  }
+
+  getMultipleWeatherData(cities:any[]){
+    let requests=[];
+    cities.forEach(city=>{
+      requests.push(this.http.get(`https://api.openweathermap.org/data/2.5/weather?lat=${city.coord.lat}&lon=${city.coord.lat}&units=metric&APPID=${this.apiKey}&lang=el`))
+    })
+
+    return forkJoin(requests);
   }
 }

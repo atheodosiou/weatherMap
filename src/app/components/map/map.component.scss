@@ -59,3 +59,19 @@
 :host ::ng-deep div.leaflet-bottom .leaflet-control {
   margin-bottom: 30px !important;
 }
+
+
+.marker{
+  margin-top: 100px;
+  // background: url('../../../assets/icons/map-marker.svg');
+  background-color: red;
+  background-repeat: no-repeat;
+  background-size:contain;
+  height: 70px;
+  width: 43px;
+
+  img{
+    margin-left: -6px;
+    height: 55px;
+  }
+}

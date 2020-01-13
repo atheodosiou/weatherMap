@@ -6,6 +6,7 @@
 //
 
 $main-dark: #0f1621;
+$primary-blue:rgb(1, 182, 178);
 
 $white: #fff !default;
 $gray-100: #f8f9fa !default;
@@ -30,7 +31,7 @@ $green: #00bc8c !default;
 $teal: #20c997 !default;
 $cyan: #3498db !default;
 
-$primary: $blue !default;
+$primary: $primary-blue !default;
 $secondary: $gray-700 !default;
 $success: $green !default;
 $info: $cyan !default;
